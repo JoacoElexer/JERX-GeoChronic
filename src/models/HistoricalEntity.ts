@@ -11,7 +11,7 @@ interface City extends HistoricalEntity {
 }
 
 interface Empire extends HistoricalEntity {
-    timePeriod: TimePeriod;
+    period: TimePeriod;
 }
 
 interface TradeRoute extends HistoricalEntity {
@@ -30,6 +30,11 @@ interface Polygon {
 }
 
 interface TimePeriod {
-    startDate: Date;
-    endDate?: Date;
+    startDate: HistoricalDate;
+    endDate: HistoricalDate | "presente" | "desconocido";
 }
+
+type HistoricalDate =
+    | { type: "fecha"; fecha: Date; approximate: boolean; era: "D.C" | "A.C" }
+    | { type: "año"; año: number; approximate: boolean; era: "D.C" | "A.C" }
+    | { type: "siglo"; siglo: string; approximate: boolean; era: "D.C" | "A.C" };
